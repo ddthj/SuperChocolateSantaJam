@@ -132,6 +132,13 @@ class Vector3:
                        (self[2] * value[0]) - (self[0] * value[2]),
                        (self[0] * value[1]) - (self[1] * value[0]))
 
+    def cap(self, value):
+        magnitude = self.magnitude()
+        if magnitude > value:
+            return self.normalize() * value
+        else:
+            return self.copy()
+
     def flatten(self, axis=None):
         # Sets Z (Vector3[2]) to 0, or flattens point to some plane orthogonal to the provided axis
         if axis is None:

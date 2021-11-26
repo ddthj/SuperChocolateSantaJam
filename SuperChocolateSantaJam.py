@@ -29,14 +29,8 @@ class Camera:
         self.debug = debug
 
     def tick(self):
-        if self.target is None:
-            pass
-        else:
-            temp_v = self.target.velocity.flatten().magnitude()
-            temp = self.target.location + (self.target.velocity * Vector3(0.9 - cap(temp_v / 2000, 0, 0.9), 0, 0))
-            direction, distance = (temp - self.location).normalize(True)
-            if distance > 1:
-                self.location += (direction * (distance / 8))
+        if self.target is not None:
+            self.location += (self.target.location + (self.target.velocity * Vector3(0.9, 0, 0)).cap(250) - self.location) / 8
 
     def render_entity(self, window, entity: Entity):
         zoom = self.zoom_modifier + self.zoom
